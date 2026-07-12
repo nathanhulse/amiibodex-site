@@ -128,16 +128,43 @@
   @keyframes nfcPulse{0%{opacity:.65; transform:scale(.85)} 100%{opacity:0; transform:scale(1.15)}}
   .ss-wave{color:#43C596; margin-top:20px} .ss-wave svg{width:30px; height:30px}
   .ss-hint{font-size:10px; color:#8fb0a4; font-weight:600; text-align:center; letter-spacing:.02em}
-  /* verified result card */
-  .ss-result{position:absolute; left:12px; right:12px; bottom:12px; background:rgba(67,197,150,.12);
-    border:1px solid rgba(67,197,150,.4); border-radius:13px; padding:9px 11px; display:flex; align-items:center; gap:10px;
-    opacity:0; transform:translateY(14px); transition:opacity .35s ease, transform .35s ease}
-  .scan-screen.done .ss-result{opacity:1; transform:none}
-  .ss-result img{width:40px; height:40px; object-fit:contain; filter:drop-shadow(0 3px 5px rgba(0,0,0,.4))}
-  .ss-result .rn{font-weight:800; font-size:13px; line-height:1.1}
-  .ss-result .rs{font-size:9px; color:#8fb0a4; margin-top:1px}
-  .ss-result .rcheck{margin-left:auto; width:22px; height:22px; border-radius:50%; background:#43C596; color:#04140d;
-    display:grid; place-items:center; font-weight:900; font-size:12px; flex:none}
+  /* ---- Smash-style character reveal (mirrors the app's SmashIntroView) ---- */
+  .ss-reveal{position:absolute; inset:0; overflow:hidden; opacity:0; pointer-events:none; --accent:#e9b949}
+  .scan-screen.reveal .ss-reveal{opacity:1; transition:opacity .16s ease}
+  .rv-slash{position:absolute; inset:0;
+    background:linear-gradient(118deg, color-mix(in srgb,var(--accent) 20%,#06070c) 0%, #06070c 56%), #05060a}
+  .rv-slash::after{content:""; position:absolute; top:-6%; bottom:-6%; left:45%; width:3px;
+    background:linear-gradient(180deg,var(--accent),transparent); transform:skewX(-15deg);
+    box-shadow:0 0 22px var(--accent)}
+  .rv-beam{position:absolute; top:-12%; right:4%; width:66%; height:124%;
+    background:linear-gradient(180deg, color-mix(in srgb,var(--accent) 34%,transparent), transparent 70%);
+    transform:skewX(-12deg); filter:blur(7px); opacity:.5}
+  .rv-fig{position:absolute; right:1%; top:50%; height:76%; width:auto; z-index:2;
+    transform:translateY(-50%) scale(1.16); opacity:0;
+    filter:drop-shadow(0 10px 20px rgba(0,0,0,.5)) drop-shadow(0 0 24px color-mix(in srgb,var(--accent) 55%,transparent));
+    transition:transform .5s cubic-bezier(.2,.7,.2,1), opacity .34s ease}
+  .scan-screen.reveal .rv-fig{opacity:1; transform:translateY(-50%) scale(1)}
+  .rv-badge{position:absolute; top:11px; right:11px; z-index:3; font-size:8px; font-weight:800; color:#04140d;
+    background:var(--accent); padding:4px 8px; border-radius:999px; display:flex; align-items:center; gap:4px;
+    opacity:0; transition:opacity .3s ease .32s}
+  .rv-badge span{width:11px; height:11px; border-radius:50%; background:#04140d; color:var(--accent);
+    display:grid; place-items:center; font-size:8px}
+  .scan-screen.reveal .rv-badge{opacity:.96}
+  .rv-text{position:absolute; left:14px; right:34%; bottom:16px; z-index:2}
+  .rv-series{font-family:ui-monospace,Menlo,monospace; font-size:8px; letter-spacing:.16em; text-transform:uppercase;
+    font-weight:700; color:var(--accent); opacity:0; transform:translateY(8px); transition:all .3s ease .12s}
+  .rv-name{font-family:"SF Pro Display",system-ui,sans-serif; font-weight:900; font-size:27px; line-height:.96;
+    letter-spacing:-.02em; color:#fff; text-transform:uppercase; text-shadow:0 2px 8px rgba(0,0,0,.6);
+    opacity:0; transform:translateY(12px); transition:all .34s cubic-bezier(.2,.7,.2,1) .16s}
+  .rv-bar{width:50px; height:3px; margin:7px 0 6px; border-radius:2px;
+    background:linear-gradient(90deg,var(--accent),transparent);
+    opacity:0; transform:scaleX(.3); transform-origin:left; transition:all .3s ease .22s}
+  .rv-tag{font-size:12.5px; font-weight:800; color:rgba(255,255,255,.94);
+    opacity:0; transform:translateY(10px); transition:all .3s ease .28s}
+  .scan-screen.reveal .rv-series,.scan-screen.reveal .rv-name,
+  .scan-screen.reveal .rv-bar,.scan-screen.reveal .rv-tag{opacity:1; transform:none}
+  .rv-flash{position:absolute; inset:0; background:#fff; opacity:0; z-index:4; pointer-events:none; transition:opacity .16s ease}
+  .scan-screen.flash .rv-flash{opacity:.92}
   .scan-screen.scanning::after{content:""; position:absolute; left:0; right:0; height:34%;
     background:linear-gradient(180deg,transparent,rgba(67,197,150,.28),transparent); top:-34%; animation:sweep 1s ease-in-out}
   @keyframes sweep{to{top:100%}}
@@ -162,13 +189,6 @@
     border:2px solid var(--green); opacity:0}
   .ripple.go{animation:ripple 1s ease-out forwards}
   @keyframes ripple{0%{opacity:.7; transform:scale(.4)} 100%{opacity:0; transform:scale(6)}}
-  .verified-toast{position:absolute; top:auto; bottom:29%; left:50%; transform:translate(-50%,-8px); z-index:5;
-    background:var(--green); color:#04140d; font-weight:800; font-size:.82rem; padding:8px 15px; border-radius:999px;
-    display:flex; align-items:center; gap:7px; box-shadow:0 10px 24px rgba(28,148,107,.4); opacity:0;
-    transition:opacity .3s ease, transform .3s ease; white-space:nowrap}
-  .verified-toast.show{opacity:1; transform:translate(-50%,0)}
-  .verified-toast .c{width:17px; height:17px; border-radius:50%; background:#04140d; color:var(--green);
-    display:grid; place-items:center; font-size:11px}
   .scan-cta{display:flex; align-items:center; gap:14px; justify-content:center; margin-top:16px}
   .scan-hint{font-size:.82rem; color:var(--faint)}
 
@@ -321,7 +341,7 @@
       <a href="#features">Features</a>
       <a href="#support">Support</a>
       <button class="themetog" id="themeBtn" aria-label="Toggle light and dark theme" title="Toggle theme"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
-      <a class="btn btn-gold" href="#get">Join the beta</a>
+      <a class="btn btn-gold" href="#get">Get the app</a>
     </div>
   </div>
 </nav>
@@ -334,8 +354,8 @@
       <h1>Tap it in.<br><span class="hl">Own it for real.</span></h1>
       <p class="lede">Catalogue all 943 amiibo, then hold a real figure to your iPhone to verify it by NFC. Your whole collection — proven, organised, and always in your pocket.</p>
       <div class="cta-row">
-        <a class="btn btn-gold" href="#get">Join the TestFlight
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <a class="btn btn-gold" href="#get">Coming to the App Store
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v13m0 0l-4.5-4.5M12 16l4.5-4.5M5 21h14"/></svg></a>
         <a class="btn btn-ghost" href="#how">See how it works</a>
       </div>
       <div class="trust">
@@ -347,7 +367,6 @@
 
     <div class="hero-scan">
       <div class="scan-stage" id="scanStage">
-        <div class="verified-toast" id="vToast"><span class="c">✓</span> <span id="vToastText">Dex-Verified</span></div>
         <div class="ripples" id="ripples"><span class="ripple"></span><span class="ripple"></span><span class="ripple"></span></div>
         <img class="scan-figure" id="scanFig" alt="amiibo figure being scanned">
         <div class="hero-phone">
@@ -365,10 +384,19 @@
                 <span class="ss-wave"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.5a10 10 0 0 1 14 0M8 15.5a6 6 0 0 1 8 0M11 18.3a2 2 0 0 1 2 0"/></svg></span>
                 <span class="ss-hint">Hold amiibo to the top</span>
               </div>
-              <div class="ss-result" id="ssResult">
-                <img id="ssResultImg" alt=""><div><div class="rn" id="ssResultName">Link</div><div class="rs" id="ssResultSeries">The Legend of Zelda</div></div>
-                <div class="rcheck">✓</div>
+            </div>
+            <div class="ss-reveal" id="ssReveal">
+              <div class="rv-slash"></div>
+              <div class="rv-beam"></div>
+              <img class="rv-fig" id="rvFig" alt="">
+              <div class="rv-badge"><span>✓</span> Dex-Verified</div>
+              <div class="rv-text">
+                <div class="rv-series" id="rvSeries">The Legend of Zelda</div>
+                <div class="rv-name" id="rvName">Link</div>
+                <div class="rv-bar"></div>
+                <div class="rv-tag" id="rvTag">A Hero Awakens</div>
               </div>
+              <div class="rv-flash" id="rvFlash"></div>
             </div>
           </div></div>
         </div>
@@ -504,9 +532,9 @@
   <div class="wrap">
     <div class="card reveal">
       <div class="orb"></div>
-      <span class="eyebrow">Now in TestFlight</span>
+      <span class="eyebrow">Coming soon to the App Store</span>
       <h2>Start your Dex today.</h2>
-      <p>Be one of the first collectors to try AmiiboDex before it hits the App Store.</p>
+      <p>AmiiboDex is on its way to the App Store. Want in early? The TestFlight beta is open now.</p>
       <div class="cta-row">
         <a class="btn btn-gold" href="mailto:support@amiibodex.app?subject=AmiiboDex%20TestFlight%20invite">Request a beta invite
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -559,67 +587,79 @@
   var mq=document.getElementById('mqTrack');
   if(mq){ mq.innerHTML+=mq.innerHTML; if(!reduce)mq.classList.add('run'); }
 
-  // ---- hero scan animation ----
+  // ---- hero scan animation (mirrors the app's SmashIntroView roster reveal) ----
   var figs=[
-    {id:'fig-link',name:'Link',series:'The Legend of Zelda'},
-    {id:'fig-mario',name:'Mario',series:'Super Mario'},
-    {id:'fig-samus',name:'Samus',series:'Metroid'},
-    {id:'fig-kirby',name:'Kirby',series:'Kirby'},
-    {id:'fig-inkling',name:'Inkling',series:'Splatoon'},
-    {id:'fig-pikachu',name:'Pikachu',series:'Pokémon'}
+    {id:'fig-link',    name:'Link',    series:'The Legend of Zelda', tag:'A Hero Awakens',     accent:'#e9b949'},
+    {id:'fig-mario',   name:'Mario',   series:'Super Mario',         tag:"Let's-a Go!",        accent:'#e5372b'},
+    {id:'fig-samus',   name:'Samus',   series:'Metroid',             tag:'Bounty Acquired',    accent:'#f2913a'},
+    {id:'fig-kirby',   name:'Kirby',   series:'Kirby',               tag:'Inhale Everything',  accent:'#f48fb1'},
+    {id:'fig-inkling', name:'Inkling', series:'Splatoon',            tag:'Stay Fresh',         accent:'#5ccf22'},
+    {id:'fig-pikachu', name:'Pikachu', series:'Pokémon',             tag:'A Wild One Appears', accent:'#f5c518'}
   ];
   var scanFig=document.getElementById('scanFig'), screen=document.getElementById('scanScreen'),
-      ssTitle=document.getElementById('ssTitle'), ssResult=document.getElementById('ssResult'),
-      ssRImg=document.getElementById('ssResultImg'), ssRName=document.getElementById('ssResultName'),
-      ssRSeries=document.getElementById('ssResultSeries'), verN=document.getElementById('verN'),
-      ownedN=document.getElementById('ownedN'), toast=document.getElementById('vToast'),
-      toastText=document.getElementById('vToastText'), ripples=document.getElementById('ripples'),
+      ssReveal=document.getElementById('ssReveal'), rvFig=document.getElementById('rvFig'),
+      rvName=document.getElementById('rvName'), rvSeries=document.getElementById('rvSeries'),
+      rvTag=document.getElementById('rvTag'), verN=document.getElementById('verN'),
+      ownedN=document.getElementById('ownedN'), ripples=document.getElementById('ripples'),
       scanBtn=document.getElementById('scanBtn');
-  var i=0, verBase=38, ownBase=362, running=false, timers=[];
+  var i=0, running=false, timers=[];
   function T(fn,ms){var id=setTimeout(fn,ms);timers.push(id);}
   function clearT(){timers.forEach(clearTimeout);timers=[];}
   function srcFor(id){var el=document.getElementById(id);return el?el.src:'';}
-
+  function applyReveal(f){
+    ssReveal.style.setProperty('--accent', f.accent);
+    rvFig.src=srcFor(f.id); rvName.textContent=f.name; rvSeries.textContent=f.series; rvTag.textContent=f.tag;
+    verN.textContent=(38 + i + 1); ownedN.textContent=(362 + i + 1);
+  }
   function runScan(auto){
     if(running)return; running=true;
     var f=figs[i];
+    screen.classList.remove('reveal','flash','pulse');
     scanFig.src=srcFor(f.id); scanFig.alt=f.name;
-    screen.classList.remove('done','scanning'); ssResult.style.opacity='';
-    ssTitle.textContent='Ready to Scan';
     scanFig.classList.remove('lift'); void scanFig.offsetWidth; scanFig.classList.add('drop');
     screen.classList.add('pulse');
-    // contact
+    // contact — ripples + white flash, prep the reveal underneath
     T(function(){
-      // ripples
-      ripples.querySelectorAll('.ripple').forEach(function(r,k){r.classList.remove('go');void r.offsetWidth;T(function(){r.classList.add('go');},k*160);});
-      screen.classList.remove('pulse'); screen.classList.add('scanning');
-      ssTitle.textContent='Scanning…';
-    },830);
-    // verified
+      ripples.querySelectorAll('.ripple').forEach(function(r,k){r.classList.remove('go');void r.offsetWidth;T(function(){r.classList.add('go');},k*150);});
+      screen.classList.remove('pulse'); screen.classList.add('flash');
+      applyReveal(f);
+    },840);
+    T(function(){ screen.classList.add('reveal'); },980);
+    T(function(){ screen.classList.remove('flash'); scanFig.classList.remove('drop'); scanFig.classList.add('lift'); },1050);
+    // hold on the reveal, then back to the scan screen
+    T(function(){ screen.classList.remove('reveal'); },3100);
     T(function(){
-      screen.classList.remove('scanning'); screen.classList.add('done');
-      ssRImg.src=srcFor(f.id); ssRName.textContent=f.name; ssRSeries.textContent=f.series;
-      ssTitle.textContent='Verified!';
-      verN.textContent=(verBase + i + 1); ownedN.textContent=(ownBase + i + 1);
-      toastText.textContent=f.name+' · Dex-Verified'; toast.classList.add('show');
-    },1400);
-    // lift + next
-    T(function(){ scanFig.classList.remove('drop'); scanFig.classList.add('lift'); toast.classList.remove('show'); },2650);
-    T(function(){
-      screen.classList.remove('done'); running=false;
-      i=(i+1)%figs.length; if(i===0){verBase=38;ownBase=362;}
-      if(auto)T(function(){runScan(true);},700);
-    },3300);
+      running=false; i=(i+1)%figs.length;
+      if(auto)T(function(){runScan(true);},780);
+    },3520);
   }
   if(reduce){
-    // static verified state
-    var f=figs[0]; scanFig.src=srcFor(f.id); scanFig.style.opacity=1; scanFig.style.transform='translate(-50%,-100%)';
-    screen.classList.add('done'); ssRImg.src=srcFor(f.id); ssRName.textContent=f.name; ssRSeries.textContent=f.series; ssTitle.textContent='Verified!';
-    scanBtn.addEventListener('click',function(){});
+    i=0; applyReveal(figs[0]); screen.classList.add('reveal');
   }else{
-    scanBtn.addEventListener('click',function(){ if(running){clearT();running=false;} i=i; runScan(false); T(function(){if(!running)runScan(true);},3600); });
-    // autostart after a beat
+    scanBtn.addEventListener('click',function(){
+      if(running){clearT(); running=false; screen.classList.remove('reveal','flash','pulse');}
+      runScan(false); T(function(){if(!running)runScan(true);},3900);
+    });
     T(function(){runScan(true);},900);
+  }
+
+  // ---- scroll parallax (subtle Apple-style depth on the feature phones) ----
+  if(!reduce){
+    var pxEls=[].slice.call(document.querySelectorAll('.feat .device'));
+    var ticking=false;
+    function px(){
+      var vh=window.innerHeight;
+      for(var k=0;k<pxEls.length;k++){
+        var el=pxEls[k], r=el.getBoundingClientRect(), c=r.top+r.height/2;
+        var pct=(c - vh/2)/vh;
+        el.style.transform='translate3d(0,'+(-pct*30).toFixed(1)+'px,0)';
+      }
+      ticking=false;
+    }
+    function onScroll(){ if(!ticking){ticking=true; requestAnimationFrame(px);} }
+    window.addEventListener('scroll',onScroll,{passive:true});
+    window.addEventListener('resize',onScroll,{passive:true});
+    px();
   }
 })();
 </script>
