@@ -14,7 +14,7 @@
     --line:rgba(60,44,20,.13); --line2:rgba(60,44,20,.08);
     --glow:rgba(182,124,30,.20); --shadow:rgba(50,36,14,.20);
     --frame:#0E0B07; --frame2:#2b2318; --scan:#0f1310;
-    --maxw:1200px;
+    --maxw:1240px;
   }
   @media (prefers-color-scheme: dark){:root{
     --bg:#141009; --bg2:#0e0b06; --panel:#211A11; --panel2:#191309;
@@ -91,10 +91,10 @@
     background-image:radial-gradient(var(--line) 1px, transparent 1px); background-size:26px 26px;
     -webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 30%, #000, transparent 75%);
     mask-image:radial-gradient(ellipse 80% 70% at 50% 30%, #000, transparent 75%)}
-  .hero-grid{position:relative; z-index:1; display:grid; grid-template-columns:1.02fr 1fr; gap:40px; align-items:center}
+  .hero-grid{position:relative; z-index:1; display:grid; grid-template-columns:1.12fr 0.88fr; gap:40px; align-items:center}
   .hero h1{font-size:clamp(2.55rem,5.4vw,4.2rem); margin:14px 0 0}
-  .hero h1 .hl{color:var(--gold-ink); position:relative; white-space:nowrap}
-  .lede{font-size:clamp(1.08rem,1.55vw,1.26rem); color:var(--muted); margin:20px 0 0; max-width:36ch}
+  .hero h1 .hl{color:var(--gold-ink); position:relative}
+  .lede{font-size:clamp(1.08rem,1.55vw,1.24rem); color:var(--muted); margin:20px 0 0; max-width:46ch}
   .cta-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:28px}
   .trust{display:flex; gap:16px; flex-wrap:wrap; margin-top:22px}
   .trust span{display:flex; align-items:center; gap:7px; font-size:.83rem; color:var(--faint); font-weight:500}
@@ -139,8 +139,9 @@
   .rv-beam{position:absolute; top:-12%; right:4%; width:66%; height:124%;
     background:linear-gradient(180deg, color-mix(in srgb,var(--accent) 34%,transparent), transparent 70%);
     transform:skewX(-12deg); filter:blur(7px); opacity:.5}
-  .rv-fig{position:absolute; right:1%; top:50%; height:76%; width:auto; z-index:2;
-    transform:translateY(-50%) scale(1.16); opacity:0;
+  .rv-fig{position:absolute; right:1%; top:50%; width:auto; height:auto;
+    max-width:70%; max-height:84%; object-fit:contain; object-position:center bottom; z-index:2;
+    transform:translateY(-50%) scale(1.14); opacity:0;
     filter:drop-shadow(0 10px 20px rgba(0,0,0,.5)) drop-shadow(0 0 24px color-mix(in srgb,var(--accent) 55%,transparent));
     transition:transform .5s cubic-bezier(.2,.7,.2,1), opacity .34s ease}
   .scan-screen.reveal .rv-fig{opacity:1; transform:translateY(-50%) scale(1)}
@@ -197,7 +198,7 @@
   .hero-device-wrap{position:relative; display:grid; place-items:center}
   .hero-halo{position:absolute; width:116%; height:64%; top:14%;
     background:radial-gradient(ellipse at center,var(--glow),transparent 70%); filter:blur(14px); z-index:0}
-  .hero-device-wrap .device{width:min(300px,78vw); z-index:1}
+  .hero-device-wrap .device{width:min(348px,82vw); z-index:1}
   .float{animation:float 6.5s ease-in-out infinite}
   @keyframes float{50%{transform:translateY(-14px)}}
 
@@ -206,7 +207,7 @@
     border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:64px 0 74px}
   .scan-demo-bg{position:absolute; inset:0; z-index:0;
     background:radial-gradient(ellipse 58% 48% at 76% 44%, var(--glow), transparent 70%)}
-  .scan-demo-grid{position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center}
+  .scan-demo-grid{position:relative; z-index:1; display:grid; grid-template-columns:auto auto; justify-content:center; gap:84px; align-items:center}
   .scan-demo .copy{max-width:44ch}
   .scan-demo h2{font-size:clamp(1.9rem,3.6vw,2.7rem); margin-top:10px}
   .scan-demo .copy p{color:var(--muted); font-size:1.06rem; margin:14px 0 0}
@@ -250,15 +251,15 @@
   .steps .step:last-child .conn{display:none}
 
   /* feature rows */
-  .feat{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center; padding:40px 0}
+  .feat{display:grid; grid-template-columns:auto auto; justify-content:center; gap:92px; align-items:center; padding:40px 0}
   .feat.rev .fig{order:2}
-  .feat .copy{max-width:46ch}
+  .feat .copy{max-width:48ch}
   .feat h3{font-size:clamp(1.5rem,2.6vw,2.1rem); margin:12px 0 0}
   .feat p{color:var(--muted); font-size:1.04rem; margin:13px 0 0}
   .feat .fig{display:grid; place-items:center; position:relative}
   .feat .fig .halo{position:absolute; width:92%; height:58%; top:21%;
     background:radial-gradient(ellipse,var(--glow),transparent 70%); filter:blur(10px); z-index:0}
-  .device{position:relative; width:min(290px,74vw); margin:0 auto; aspect-ratio:1320/2868; z-index:1}
+  .device{position:relative; width:min(318px,76vw); margin:0 auto; aspect-ratio:1320/2868; z-index:1}
   .device .bezel{position:absolute; inset:0; background:linear-gradient(160deg,var(--frame2),var(--frame));
     border-radius:13% / 6%; padding:2.6%;
     box-shadow:0 40px 80px -20px var(--shadow), 0 0 0 1px color-mix(in srgb,var(--gold) 28%,transparent), inset 0 0 0 1px rgba(255,255,255,.05)}
@@ -374,8 +375,22 @@
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="eyebrow">Unofficial amiibo collection tracker</span>
-      <h1>Tap it in.<br><span class="hl">Own it for real.</span></h1>
-      <p class="lede">Catalogue all 943 amiibo, then hold a real figure to your iPhone to verify it by NFC. Your whole collection — proven, organised, and always in your pocket.</p>
+      <h1 id="heroTitle">Every amiibo.<br><span class="hl">Beautifully in order.</span></h1>
+      <script>
+      (function(){
+        var lines=[
+          ['Every amiibo.','Beautifully in order.'],
+          ['943 amiibo,','beautifully shelved.'],
+          ['A collection this good','deserves an app to match.'],
+          ['Your amiibo look this good.','Your app should too.'],
+          ['Collecting is chaos.','Your Dex isn’t.']
+        ];
+        var h=document.getElementById('heroTitle');
+        if(h){var p=lines[Math.floor(Math.random()*lines.length)];
+          h.innerHTML=p[0]+'<br><span class="hl">'+p[1]+'</span>';}
+      })();
+      </script>
+      <p class="lede">Catalogue all 943 amiibo, track what you own and what you’re still hunting, and browse the whole collection on lit 3D shelves. Got a figure in hand? Tap it to your iPhone to verify the real thing.</p>
       <div class="cta-row">
         <a class="btn btn-gold" href="#get">Coming to the App Store
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v13m0 0l-4.5-4.5M12 16l4.5-4.5M5 21h14"/></svg></a>
@@ -455,7 +470,7 @@
     <div class="sec-head center reveal">
       <span class="eyebrow">How it works</span>
       <h2>From shelf to Dex in three taps.</h2>
-      <p>No spreadsheets, no guesswork. Catalogue what you have, prove what's real, and watch your collection come to life.</p>
+      <p>No spreadsheets, no maybe-I-own-that guesswork. Catalogue your collection, verify the real figures by tapping them in, and watch your Dex fill up.</p>
     </div>
     <div class="steps reveal">
       <div class="step">
@@ -652,19 +667,19 @@
     },840);
     T(function(){ screen.classList.add('reveal'); },980);
     T(function(){ screen.classList.remove('flash'); scanFig.classList.remove('drop'); scanFig.classList.add('lift'); },1050);
-    // hold on the reveal, then back to the scan screen
-    T(function(){ screen.classList.remove('reveal'); },3100);
+    // hold on the reveal, then flow straight into the next scan (minimal dead time)
+    T(function(){ screen.classList.remove('reveal'); },4600);
     T(function(){
       running=false; i=(i+1)%figs.length;
-      if(auto)T(function(){runScan(true);},780);
-    },3520);
+      if(auto)T(function(){runScan(true);},240);
+    },4820);
   }
   if(reduce){
     i=0; applyReveal(figs[0]); screen.classList.add('reveal');
   }else{
     scanBtn.addEventListener('click',function(){
       if(running){clearT(); running=false; screen.classList.remove('reveal','flash','pulse');}
-      runScan(false); T(function(){if(!running)runScan(true);},3900);
+      runScan(false); T(function(){if(!running)runScan(true);},4900);
     });
     // Scroll-triggered: kick off the loop when the scan section first scrolls into view.
     var scanSection=document.getElementById('scan'), started=false;
