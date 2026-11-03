@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="The shelf is full. The wishlist isn’t. Track your amiibo, hunt missing favorites, browse display shelves and celebrate collection milestones with AmiiboDex.">
+<meta name="description" content="Track your amiibo collection, wishlist, compatible games and series progress with AmiiboDex for iPhone and iPad.">
 <link rel="icon" href="favicon-32.png" type="image/png">
-<meta property="og:title" content="AmiiboDex — Just one more.">
-<meta property="og:description" content="The shelf is full. The wishlist isn’t. Your amiibo collection, in your pocket.">
+<meta property="og:title" content="AmiiboDex — Your collection, clearly organized.">
+<meta property="og:description" content="Track your amiibo collection, wishlist and series progress.">
 <title>AmiiboDex — amiibo Collection Tracker</title>
 <style>
   :root{
@@ -357,6 +357,31 @@
     .final .card{padding:42px 22px}
     footer .foot-top{gap:18px}
   }
+
+/* Quiet product layout */
+:root{--bg:#f7f6f2;--bg2:#efeee9;--panel:#ffffff;--panel2:#f3f1eb;--maxw:1120px}
+:root[data-theme="dark"]{--bg:#181816;--bg2:#121210;--panel:#22221e;--panel2:#282821}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#181816;--bg2:#121210;--panel:#22221e;--panel2:#282821}}
+.hero-bg,.hero-halo,.scan-demo-bg,.halo,.final .orb{display:none}
+.hero{padding:72px 0 80px}
+.hero h1{font-size:clamp(2.5rem,4.5vw,3.8rem);font-weight:750;line-height:1.1}
+.lede{max-width:44ch;font-size:1.12rem}
+.eyebrow{letter-spacing:.12em}
+.btn{border-radius:10px;box-shadow:none}
+.btn-gold{background:var(--gold);box-shadow:none}
+.device.float{animation:none;transform:none}
+.scan-demo{background:var(--panel);border-block:1px solid var(--line)}
+.scan-demo-grid{gap:64px}
+.scan-demo h2{color:var(--ink)}
+.scan-hint{color:var(--muted)}
+.feat{padding:56px 0;border-bottom:1px solid var(--line)}
+.feat.rev .fig{order:0}
+.feat .device{width:230px}
+.feat .copy{margin-top:0}
+.final .card{border-radius:16px;box-shadow:none;background:var(--panel)}
+.scan-screen.reveal .ss-reveal{opacity:1}
+html.js .reveal{opacity:1;transform:none}
+@media(max-width:900px){.hero{padding:40px 0}.scan-demo-grid{gap:24px}.feat{gap:24px}.hero h1{font-size:2.5rem}}
 </style>
 </head>
 <body>
@@ -366,11 +391,11 @@
   <div class="wrap row">
     <a class="brand" href="#top"><img src="assets/a9840b10f3dda2c5.png" alt="AmiiboDex icon"><span>Amiibo<b>Dex</b></span></a>
     <div class="links">
-      <a href="#how">How it works</a>
+      <a href="#scan">Scanning</a>
       <a href="#features">Features</a>
       <a href="#support">Support</a>
       <button class="themetog" id="themeBtn" aria-label="Toggle light and dark theme" title="Toggle theme"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
-      <a class="btn btn-gold" href="#get">Meet your Dex</a>
+      <a class="btn btn-gold" href="#get">Availability</a>
     </div>
   </div>
 </nav>
@@ -380,12 +405,12 @@
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <span class="eyebrow">Unofficial amiibo collection tracker</span>
-      <h1>Just one more.<br><span class="hl">You know the feeling.</span></h1>
-      <p class="lede">The shelf is full. The wishlist isn’t. Keep track of your amiibo, spot the gaps in your favorite series, and take the whole collection with you—without packing a single box.</p>
+      <h1>Your collection.<br><span class="hl">Clearly organized.</span></h1>
+      <p class="lede">Track the amiibo you own, keep a wishlist, and explore your collection by series. Designed for iPhone and iPad.</p>
       <div class="cta-row">
         <a class="btn btn-gold" href="#get">Coming to the App Store
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 3v13m0 0l-4.5-4.5M12 16l4.5-4.5M5 21h14"/></svg></a>
-        <a class="btn btn-ghost" href="#how">See how it works</a>
+        <a class="btn btn-ghost" href="#features">Explore features</a>
       </div>
       <div class="trust">
         <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> iPhone &amp; iPad · iOS 17+</span>
@@ -405,14 +430,12 @@
   <div class="scan-demo-bg" aria-hidden="true"></div>
   <div class="wrap scan-demo-grid">
     <div class="copy reveal">
-      <span class="eyebrow">New arrival ritual</span>
-      <h2>Fresh off the shelf.<br>Ready for its close-up.</h2>
-      <p>Hold an amiibo to a compatible iPhone to read its NFC identity, then add it to your collection with a character reveal. Prefer to keep the box sealed? You can mark it owned by hand, too.</p>
-      <div class="taglist">
-        <span class="tag green">NFC identification</span><span class="tag">Dex-Verified seal</span><span class="tag">Manual tracking, too</span>
-      </div>
+      <span class="eyebrow">NFC scanning</span>
+      <h2>Scan. Identify. Add.</h2>
+      <p>Read an amiibo’s NFC tag with a compatible iPhone, then add it to your collection. You can also track owned figures manually.</p>
+      
       <div class="scan-cta">
-        <button class="btn btn-gold" id="scanBtn" type="button">Preview the reveal
+        <button class="btn btn-gold" id="scanBtn" type="button">Scan next figure
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12.5a10 10 0 0 1 14 0M8 15.5a6 6 0 0 1 8 0"/></svg></button>
         <span class="scan-hint">Illustrated demo—not a live NFC scan</span>
       </div>
@@ -444,7 +467,7 @@
   </div>
 </section>
 
-<div class="marquee reveal">
+<div class="marquee" hidden>
   <div class="lbl"><b>Big shelves. Tiny heroes.</b> Browse figures, cards, yarn amiibo, bands &amp; blocks</div>
   <div class="mq-track" id="mqTrack">
     <img id="fig-mario" src="assets/26a438fea71024e0.png" alt="Mario"><img id="fig-link" src="assets/d4fef9c4171860e8.png" alt="Link">
@@ -456,48 +479,21 @@
   </div>
 </div>
 
-<section class="how" id="how">
-  <div class="wrap">
-    <div class="sec-head center reveal">
-      <span class="eyebrow">How it works</span>
-      <h2>A little order for your glorious obsession.</h2>
-      <p>Know what’s home, what’s missing, and what you’re hoping to find on the next lucky shelf.</p>
-    </div>
-    <div class="steps reveal">
-      <div class="step">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
-        <h3>Take roll call</h3>
-        <p>Mario? Present. That elusive variant? Still looking. Search the catalog and give every find a place in your collection or wishlist.</p>
-        <div class="conn"></div>
-      </div>
-      <div class="step">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.5a10 10 0 0 1 14 0M8 15.5a6 6 0 0 1 8 0M11 18.3a2 2 0 0 1 2 0"/></svg></div>
-        <h3>Give new arrivals an entrance</h3>
-        <p>Scan an amiibo’s NFC tag on a compatible iPhone and add it as owned to record a <b>Dex-Verified</b> scan. It’s a record of a tag read—not an authenticity certificate.</p>
-        <div class="conn"></div>
-      </div>
-      <div class="step">
-        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.8 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></div>
-        <h3>Chase the satisfying little gaps</h3>
-        <p>Fill out a favorite series, earn your next medal, and watch the completion rings creep toward full. That last empty spot is calling.</p>
-      </div>
-    </div>
-  </div>
-</section>
+
 
 <section id="features">
   <div class="wrap">
     <div class="sec-head reveal">
       <span class="eyebrow">What it does</span>
-      <h2>For the “I’ll stop after this series” crowd.</h2>
+      <h2>A complete view of your collection.</h2>
     </div>
 
     <div class="feat reveal">
       <div class="copy">
         <span class="eyebrow">The catalogue</span>
-        <h3>“Wait… do I already have this one?”</h3>
-        <p>Check your Dex before the checkout. Owned, Needed and Wishlist views keep your collection and your next targets close at hand. Browse figure and package artwork to help tell those look-alike variants apart.</p>
-        <div class="taglist"><span class="tag">Grid &amp; search</span><span class="tag">Owned · Needed · Wishlist</span><span class="tag">Variant details</span></div>
+        <h3>Know what you own.</h3>
+        <p>Search the catalog and filter by Owned, Needed or Wishlist. Figure and package artwork help you distinguish variants.</p>
+        
       </div>
       <div class="fig"><div class="halo"></div><div class="device"><div class="bezel"><div class="screen"><img src="assets/collection.jpg" alt="Collection grid"></div></div></div></div>
     </div>
@@ -505,9 +501,9 @@
     <div class="feat rev reveal">
       <div class="copy">
         <span class="eyebrow">Show it off</span>
-        <h3>Shelf pride. Pocket edition.</h3>
-        <p>Line up your collection on display shelves, browse by series, and see how close you are to completing each one. A small victory lap for all that hunting. No dusting required.</p>
-        <div class="taglist"><span class="tag">Display shelves</span><span class="tag">Per-series progress</span><span class="tag">Magnify</span></div>
+        <h3>Browse by series.</h3>
+        <p>View your amiibo on digital shelves and track your progress toward completing each series.</p>
+        
       </div>
       <div class="fig"><div class="halo"></div><div class="device"><div class="bezel"><div class="screen"><img src="assets/shelf.jpg" alt="Collection shelf view"></div></div></div></div>
     </div>
@@ -515,9 +511,9 @@
     <div class="feat reveal">
       <div class="copy">
         <span class="eyebrow">Know every piece</span>
-        <h3>More than a pretty face on a pedestal.</h3>
-        <p>Peek at figure and box art, check listed release dates, and explore supported games and their amiibo bonuses. Found a gap worth chasing? Shopping links can help start the hunt.</p>
-        <div class="taglist"><span class="tag">Compatible games</span><span class="tag">Region releases</span><span class="tag">Box art</span></div>
+        <h3>Explore the details.</h3>
+        <p>Find figure and box artwork, regional release dates, compatible games and their amiibo bonuses.</p>
+        
       </div>
       <div class="fig"><div class="halo"></div><div class="device"><div class="bezel"><div class="screen"><img src="assets/games.jpg" alt="Amiibo detail"></div></div></div></div>
     </div>
@@ -525,32 +521,23 @@
     <div class="feat rev reveal">
       <div class="copy">
         <span class="eyebrow">Play the long game</span>
-        <h3>Your collecting habit has achievements now.</h3>
-        <p>That growing shelf deserves a little fanfare. Earn collection medals and XP as you hit milestones in figures, cards, scans and sets. Optional Game Center leaderboards add a little friendly competition.</p>
-        <div class="taglist"><span class="tag">Leveled medals</span><span class="tag">Collector XP</span><span class="tag">Opt-in leaderboards</span></div>
+        <h3>See your progress.</h3>
+        <p>Earn medals and XP for collection milestones. Optional Game Center leaderboards let you compare your progress.</p>
+        
       </div>
       <div class="fig"><div class="halo"></div><div class="device"><div class="bezel"><div class="screen"><img src="assets/achievements.jpg" alt="Achievements"></div></div></div></div>
     </div>
   </div>
 </section>
 
-<section class="statsband">
-  <div class="wrap">
-    <div class="stats reveal" id="statsRow">
-      <div class="stat"><div class="n" data-count="950" data-suffix="">950</div><div class="l">released entries in this build</div></div>
-      <div class="stat"><div class="n" data-count="20" data-suffix="+">20+</div><div class="l">series &amp; sets</div></div>
-      <div class="stat"><div class="n" data-count="4" data-suffix="">4</div><div class="l">console generations</div></div>
-      <div class="stat"><div class="n" data-count="0" data-suffix="">0</div><div class="l">accounts needed to track locally</div></div>
-    </div>
-  </div>
-</section>
+
 
 <section id="support">
   <div class="wrap">
-    <div class="sec-head center reveal"><span class="eyebrow">Support</span><h2>Got a question? Found a gremlin?</h2></div>
+    <div class="sec-head center reveal"><span class="eyebrow">Support</span><h2>Support &amp; questions</h2></div>
     <div class="support-grid reveal">
-      <div class="scard"><h4>Get in touch</h4><p>A missing variant, a stubborn scan, or a button behaving badly? Tell us which device you’re using and what happened. A screenshot helps.</p><p>Testing the beta? Use <b>Send Beta Feedback</b> in TestFlight to send a report.</p></div>
-      <div class="scard"><h4>A little more shelf time</h4><p>Version 1.0 is in TestFlight testing. Public downloads aren’t open yet. This page will link to the App Store when it’s ready.</p><p><a href="#features">Take a look around →</a></p></div>
+      <div class="scard"><h4>Get in touch</h4><p>Report an issue with your device model and a brief description. Screenshots are helpful.</p><p>Testing the beta? Use <b>Send Beta Feedback</b> in TestFlight to send a report.</p></div>
+      <div class="scard"><h4>Release status</h4><p>Version 1.0 is in TestFlight testing. Public downloads aren’t open yet. This page will link to the App Store when it’s ready.</p><p><a href="#features">Take a look around →</a></p></div>
     </div>
     <div class="faq reveal">
       <details><summary>Do I need the physical amiibo to use the app?<span class="pm">+</span></summary><p>No. Browse the catalog and manually track owned and wishlisted entries on iPhone or iPad. NFC scanning is optional and requires a compatible physical iPhone.</p></details>
@@ -567,8 +554,8 @@
     <div class="card reveal">
       <div class="orb"></div>
       <span class="eyebrow">Coming soon to the App Store</span>
-      <h2>Make room for your next favorite.</h2>
-      <p>Your collection already has a story. Give it a home in your pocket. AmiiboDex 1.0 is in TestFlight testing ahead of its App Store release.</p>
+      <h2>Coming to the App Store.</h2>
+      <p>AmiiboDex 1.0 is in TestFlight testing. The download link will appear here when the app launches.</p>
       <div class="cta-row">
         <a class="btn btn-gold" href="#features">Explore the features
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
@@ -584,9 +571,9 @@
         <a class="brand" href="#top"><img src="assets/a9840b10f3dda2c5.png" alt=""><span>Amiibo<b>Dex</b></span></a>
         <p class="disclaimer" style="margin-top:14px"><b>AmiiboDex is an unofficial, independent collection tracker.</b> It is not affiliated with, endorsed by, sponsored by, or approved by Nintendo. “amiibo,” Nintendo character names, game titles, and related imagery are trademarks or copyrighted works of their respective owners, used here for identification and cataloguing purposes only.</p>
       </div>
-      <div class="foot-links"><a href="#how">How it works</a><a href="#features">Features</a><a href="#support">Support</a><a href="privacy.html">Privacy</a></div>
+      <div class="foot-links"><a href="#scan">Scanning</a><a href="#features">Features</a><a href="#support">Support</a><a href="privacy.html">Privacy</a></div>
     </div>
-    <div class="copy">© 2026 AmiiboDex. For the love of the little plastic things.</div>
+    <div class="copy">© 2026 AmiiboDex. Independent amiibo collection tracker.</div>
   </div>
 </footer>
 
@@ -643,63 +630,27 @@
     ssReveal.style.setProperty('--accent', f.accent);
     rvFig.src=srcFor(f.id); rvName.textContent=f.name; rvSeries.textContent=f.series; rvTag.textContent=f.tag;
   }
-  function runScan(auto){
-    if(running)return; running=true;
-    var f=figs[i];
+  function runScan(){
+    clearT();
+    var f=figs[i]; i=(i+1)%figs.length;
+    scanBtn.disabled=true;
     screen.classList.remove('reveal','flash','pulse');
     scanFig.src=srcFor(f.id); scanFig.alt=f.name;
     scanFig.classList.remove('lift'); void scanFig.offsetWidth; scanFig.classList.add('drop');
-    screen.classList.add('pulse');
-    // contact — ripples + white flash, prep the reveal underneath
     T(function(){
-      ripples.querySelectorAll('.ripple').forEach(function(r,k){r.classList.remove('go');void r.offsetWidth;T(function(){r.classList.add('go');},k*150);});
-      screen.classList.remove('pulse'); screen.classList.add('flash');
       applyReveal(f);
-    },840);
-    T(function(){ screen.classList.add('reveal'); },980);
-    T(function(){ screen.classList.remove('flash'); scanFig.classList.remove('drop'); scanFig.classList.add('lift'); },1050);
-    // hold on the reveal, then back to the scan screen
-    T(function(){ screen.classList.remove('reveal'); },3100);
-    T(function(){
-      running=false; i=(i+1)%figs.length;
-      if(auto)T(function(){runScan(true);},780);
-    },3520);
+      screen.classList.add('reveal');
+      scanFig.classList.remove('drop'); scanFig.classList.add('lift');
+      scanBtn.disabled=false;
+    },1100);
   }
-  if(reduce){
-    i=0; applyReveal(figs[0]); screen.classList.add('reveal');
-  }else{
-    scanBtn.addEventListener('click',function(){
-      if(running){clearT(); running=false; screen.classList.remove('reveal','flash','pulse');}
-      runScan(false); T(function(){if(!running)runScan(true);},3900);
-    });
-    // Scroll-triggered: kick off the loop when the scan section first scrolls into view.
-    var scanSection=document.getElementById('scan'), started=false;
-    if('IntersectionObserver'in window && scanSection){
-      var sio=new IntersectionObserver(function(es){es.forEach(function(e){
-        if(e.isIntersecting && !started){ started=true; T(function(){runScan(true);},350); sio.disconnect(); }
-      });},{threshold:.35});
-      sio.observe(scanSection);
-    } else { T(function(){runScan(true);},600); }
-  }
+  scanBtn.addEventListener('click',function(){
+    if(reduce){applyReveal(figs[i]);i=(i+1)%figs.length;return;}
+    runScan();
+  });
+  applyReveal(figs[0]); i=1; screen.classList.add('reveal');
+  // The result remains visible until the visitor asks to scan the next figure.
 
-  // ---- scroll parallax (subtle Apple-style depth on the feature phones) ----
-  if(!reduce){
-    var pxEls=[].slice.call(document.querySelectorAll('.feat .device'));
-    var ticking=false;
-    function px(){
-      var vh=window.innerHeight;
-      for(var k=0;k<pxEls.length;k++){
-        var el=pxEls[k], r=el.getBoundingClientRect(), c=r.top+r.height/2;
-        var pct=(c - vh/2)/vh;
-        el.style.transform='translate3d(0,'+(-pct*30).toFixed(1)+'px,0)';
-      }
-      ticking=false;
-    }
-    function onScroll(){ if(!ticking){ticking=true; requestAnimationFrame(px);} }
-    window.addEventListener('scroll',onScroll,{passive:true});
-    window.addEventListener('resize',onScroll,{passive:true});
-    px();
-  }
 })();
 </script>
 
